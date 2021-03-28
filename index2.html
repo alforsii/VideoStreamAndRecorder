@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Capturing & Processing Video in HTML5</title>
+    <script src="./index2.js" defer></script>
+  </head>
+  <body>
+    <div style="display: flex; justify-content: space-around;">
+      <div>
+        <h2>Camera Preview</h2>
+        <video id="cameraPreview" width="240" height="180" autoplay></video>
+      </div>
+      <div>
+        <h2>Live Stream</h2>
+        <video
+          id="liveStream"
+          width="240"
+          height="180"
+          autoplay
+          controls
+        ></video>
+      </div>
+    </div>
+    <div style="display: flex; justify-content: space-around;">
+      <div>
+        <h2>Processing Preview</h2>
+        <canvas id="processingPreview" width="240" height="180"></canvas>
+      </div>
+
+      <div>
+        <h2>Recording Preview</h2>
+        <video
+          id="recordingPreview"
+          width="240"
+          height="180"
+          autoplay
+          controls
+        ></video>
+        <!-- <p>
+          <a id="downloadButton">Download</a>
+        </p> -->
+      </div>
+    </div>
+    <div>
+      <button style="background-color: green;" onclick="start();">
+        Start Camera
+      </button>
+      <button style="background-color: lightgreen;" onclick="startRecording();">
+        Start Recording
+      </button>
+      <button style="background-color: lightpink;" onclick="stopRecording();">
+        Stop Recording
+      </button>
+      <button style="background-color: red;" onclick="stopCamera();">
+        Stop camera
+      </button>
+      <button style="background-color: lightgrey;" onclick="startLiveStream();">
+        Start Live Stream
+      </button>
+      <button style="background-color: gray;" onclick="stopLiveStream();">
+        Stop Live Stream
+      </button>
+    </div>
+  </body>
+</html>
