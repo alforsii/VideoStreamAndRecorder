@@ -9,8 +9,10 @@ let processingStream = null;
 let mediaRecorder = null;
 let recordingIntervalId = null;
 let mediaChunks = null;
-const processingPreview = document.getElementById("processingPreview");
-const ctx = processingPreview.getContext("2d");
+const processingCanvasPreview = document.getElementById(
+  "processingCanvasPreview"
+);
+const ctx = processingCanvasPreview.getContext("2d");
 const cameraPreview = document.getElementById("cameraPreview");
 cameraPreview.muted = true;
 
@@ -19,7 +21,7 @@ function processFrame() {
 }
 
 function start() {
-  const constraints = { video: true, audio: true };
+  const constraints = { video: true, audio: true }; //it has one more property: peerIdentity
   navigator.mediaDevices
     .getUserMedia(constraints)
     .then((stream) => {
@@ -38,10 +40,9 @@ function start() {
 }
 
 function startRecording() {
-  processingStream = processingPreview.captureStream(FPS);
+  processingStream = processingCanvasPreview.captureStream(FPS);
 
   mediaRecorder = new MediaRecorder(cameraStream);
-  console.log({ mediaRecorder });
 
   mediaRecorder.ondataavailable = function (event) {
     mediaChunks = event.data;
@@ -57,8 +58,8 @@ function startRecording() {
 
 function stopCamera() {
   if (cameraStream != null) {
+    console.log("🚀 ~ cameraStream", cameraStream);
     cameraStream.getTracks().forEach(function (track) {
-      console.log("🚀 ~ stopCamera ~ track", track);
       track.stop();
     });
   }
@@ -98,13 +99,13 @@ function playRecordedVideo() {
 
 const liveStream = document.getElementById("liveStream");
 function startLiveStream() {
-  liveStream.srcObject = cameraStream;
+  liveStream.srcObject = cameraStream.clone();
 }
 function stopLiveStream() {
   if (liveStream.srcObject.active) {
     liveStream.srcObject.getTracks().forEach(function (track) {
-      //   track.stop();
       console.log("stopLiveStream", track);
+      track.stop();
     });
   }
 }
